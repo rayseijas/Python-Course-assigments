@@ -1,0 +1,48 @@
+import sys
+
+Username = input("Enter your Username: ")
+password = input("Enter your Password: ")
+login = False
+intentos = 5
+security = False
+
+
+checkuser = input("Enter your user name: ")
+checkpassword = input("Enter your password: ")
+
+if checkuser == Username and password == checkpassword:
+    print("Welcome " + Username)
+
+else:
+    if checkuser != Username:
+        while login == False and security == False:
+            intentos = intentos - 1
+            checkuser = input("Wrong user name. Please enter your user name: ")
+            checkpassword = input("Please enter your password: ")
+            if checkuser == Username and password == checkpassword:
+                login = True
+                print("Welcome " + Username)
+            elif intentos == 0:
+             security = True
+             print("To many erros , sesion is locked ")
+             sys.exit()
+            else:
+                login = False
+
+
+
+
+    elif checkpassword != password:
+        while login == False and security == False:
+            intentos = intentos - 1
+            checkpassword = input("Wrong password. Please enter your password: ")
+            checkuser = input("Please enter your user name: ")
+            if checkuser == Username and password == checkpassword:
+                login = True
+                print("Welcome " + Username)
+            elif intentos == 0:
+                security = True
+                print("To many erros , sesion is locked ")
+                sys.exit()
+            else:
+                login = False
