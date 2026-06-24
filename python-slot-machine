@@ -1,0 +1,88 @@
+import random
+import time
+
+
+def Girar():
+    Figuras = ['🍒', '🍉', '🍋', '⭐', '🔔']
+    Resultado = random.choices(Figuras, k=3)
+
+    print("**************")
+    print(f"{Resultado[0]} | {Resultado[1]} | {Resultado[2]}")
+    print("**************")
+
+    return Resultado
+
+
+def Check(Result, apuesta_ejecutada):
+
+    if Result[0] == Result[1] == Result[2] == "🔔":
+        print("🎉 ¡JACKPOT! You win the round 🎉")
+        return apuesta_ejecutada * 5
+    elif Result[0] == Result[1] == Result[2] == "⭐":
+        print("You win the round")
+        return apuesta_ejecutada * 3
+    elif Result[0] == Result[1] == Result[2] == "🍋":
+        print("You win the round")
+        return apuesta_ejecutada * 2.5
+    elif Result[0] == Result[1] == Result[2] == "🍉":
+        print("You win the round")
+        return apuesta_ejecutada * 2
+    elif Result[0] == Result[1] == Result[2] == "🍒":
+        print("You win the round")
+        return apuesta_ejecutada * 1.5
+    else:
+        print("You lose the round")
+        return 0
+
+
+def Main():
+    isRuning = True
+    Dinero = 100.00
+
+    print("*****************************************************")
+    print("Welcome to Python Slot Machine")
+    print("Prices:🍒 x 1.5, 🍉 x 2 , 🍋 x 2.5 , ⭐ x 3, 🔔 x 5")
+    print("*****************************************************")
+
+    while isRuning:
+
+        if Dinero <= 0:
+            print("Sorry, but you don't have money left to bet!")
+            print("Thank you for playing")
+            break
+
+        print(f"Current Balance $ {Dinero:.2f}")
+        apuesta = float(input("Enter your bet amount: "))
+
+
+        if apuesta > Dinero or apuesta <= 0:
+            print("Invalid bet amount!")
+            continue
+
+        Dinero = Dinero - apuesta
+
+        print("spining.....")
+        time.sleep(2)
+
+        Resultado = Girar()
+        Ganancia = Check(Resultado, apuesta)
+
+
+        Dinero = Dinero + Ganancia
+
+
+        while True:
+            Respuesta = input("Do you want to spin again? (Y / N): ").upper().strip()
+            if Respuesta in ["Y", "N"]:
+                break
+            print("Option is not valid")
+
+        if Respuesta == "N":
+            isRuning = False
+            print("Thank you for playing")
+        else:
+            print("Good Choice")
+
+
+if __name__ == "__main__":
+    Main()
