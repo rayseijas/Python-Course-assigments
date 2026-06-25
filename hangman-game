@@ -1,0 +1,191 @@
+import random
+import sys
+
+AHORCADO_DIBUJOS = [
+
+    """
+       +---+
+       |   |
+           |
+           |
+           |
+           |
+    =========
+    """,
+
+    """
+       +---+
+       |   |
+       O   |
+           |
+           |
+           |
+    =========
+    """,
+
+    """
+       +---+
+       |   |
+       O   |
+       |   |
+           |
+           |
+    =========
+    """,
+
+    """
+       +---+
+       |   |
+       O   |
+      /|   |
+           |
+           |
+    =========
+    """,
+
+    """
+       +---+
+       |   |
+       O   |
+      /|\\  |
+           |
+           |
+    =========
+    """,
+
+    """
+       +---+
+       |   |
+       O   |
+      /|\\  |
+      /    |
+           |
+    =========
+    """,
+
+    """
+       +---+
+       |   |
+       O   |
+      /|\\  |
+      / \\  |
+           |
+    =========
+    """
+]
+
+def ElegirPalabra():
+    palabraPrueba = palabras = [
+
+        "web", "red", "link", "chat", "base", "llave", "virus", "hacker", "codigo", "nodo",
+
+        "python", "script", "puerto", "correo", "sistema", "remoto", "consola", "archivo",
+        "usuario", "control", "backup", "pantalla", "bloqueo", "servidor",
+
+        "algoritmo", "encriptar", "terminal", "programa", "seguridad", "firewall",
+        "protocolo", "privacidad", "hardware", "software", "autenticar", "descifrar"
+    ]
+    palabraPrueba = random.choice(palabraPrueba)
+    palabraSecreta = []
+    print(AHORCADO_DIBUJOS[0])
+
+
+    return palabraSecreta , palabraPrueba ,
+
+def Check(errores):
+
+    errores = errores+1
+
+    if errores == 1:
+        print(AHORCADO_DIBUJOS[1])
+    elif errores == 2:
+        print(AHORCADO_DIBUJOS[2])
+    elif errores == 3:
+        print(AHORCADO_DIBUJOS[3])
+    elif errores == 4:
+        print(AHORCADO_DIBUJOS[4])
+    elif errores == 5:
+        print(AHORCADO_DIBUJOS[5])
+    elif errores == 6:
+        print(AHORCADO_DIBUJOS[6])
+    return errores
+
+
+
+
+
+
+
+
+listaUnida=""
+juego = True
+errores = 0
+LetrasRepetidas =[]
+
+palabraSecreta , palabraPrueba  =ElegirPalabra()
+print(palabraPrueba)
+for Letter in palabraPrueba :
+    palabraSecreta.append("_")
+
+print(palabraSecreta)
+
+while juego :
+    if(listaUnida == palabraPrueba ):
+
+        print("Has adivinado la palabra")
+        Eleccion = input("Quiqeres seguir jugando (Y/N) ")
+        Eleccion = Eleccion.lower()
+        if Eleccion == "n":
+            juego = False
+            sys.exit()
+        elif Eleccion == "y":
+            print("Buena eleccion")
+            palabraSecreta, palabraPrueba = ElegirPalabra()
+            print(palabraPrueba)
+            for Letter in palabraPrueba:
+                palabraSecreta.append("_")
+            print(palabraSecreta)
+            LetrasRepetidas.clear()
+            errores = 0
+            listaUnida = ""
+
+    elif(errores == 6):
+        print(f"Has perido , la palabra era {palabraPrueba} ")
+        Eleccion = input("Quiqeres seguir jugando (Y/N) ")
+        Eleccion = Eleccion.lower()
+        if Eleccion == "n":
+            juego = False
+            sys.exit()
+        elif Eleccion == "y":
+            print("Buena eleccion")
+            palabraSecreta, palabraPrueba = ElegirPalabra()
+            print(palabraPrueba)
+            for Letter in palabraPrueba:
+                palabraSecreta.append("_")
+            print(palabraSecreta)
+            LetrasRepetidas.clear()
+            errores = 0
+            listaUnida = ""
+
+    Eleccion = input("Eligue una letra ")
+    Eleccion = Eleccion.lower()
+
+
+    if Eleccion in LetrasRepetidas :
+        print("Ya usaste esa letra")
+
+    elif Eleccion in palabraPrueba:
+        print("¡Letra correcta!")
+        for indice, letra in enumerate(palabraPrueba):
+            if letra == Eleccion:
+                palabraSecreta[indice] = Eleccion
+                listaUnida="".join(palabraSecreta)
+                LetrasRepetidas.append(Eleccion)
+
+    else:
+        errores= Check(errores)
+        print("letra incorrecta")
+
+    print(palabraSecreta)
+
+
